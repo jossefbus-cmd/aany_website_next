@@ -1,3 +1,4 @@
+import { getDictionary } from "@/shared/i18n/get-dictionary";
 import type { Locale } from "@/shared/i18n/locales";
 
 export type SiteSearchItem = {
@@ -5,6 +6,16 @@ export type SiteSearchItem = {
   href: string;
   description: string;
   keywords: ReadonlyArray<string>;
+};
+
+type Dictionary = ReturnType<typeof getDictionary>;
+
+type SearchRoute = {
+  href: string;
+  label: (dictionary: Dictionary) => string;
+  description: (dictionary: Dictionary) => string;
+  source: (dictionary: Dictionary) => unknown;
+  aliases?: Partial<Record<Locale, ReadonlyArray<string>>>;
 };
 
 export const searchUi = {
@@ -24,253 +35,252 @@ export const searchUi = {
   },
 } as const;
 
-const enSearchIndex: ReadonlyArray<SiteSearchItem> = [
+const searchRoutes: ReadonlyArray<SearchRoute> = [
   {
-    label: "Home",
     href: "/",
-    description: "Smart local services from talented people.",
-    keywords: ["home", "aany", "services", "marketplace", "local", "student"],
+    label: (dictionary) => dictionary.home.hero.title,
+    description: (dictionary) => dictionary.home.hero.body,
+    source: (dictionary) => dictionary.home,
+    aliases: {
+      en: ["home", "aany", "marketplace", "local services", "student services"],
+      th: ["หน้าแรก", "aany", "บริการ", "ตลาดบริการ", "บริการท้องถิ่น"],
+    },
   },
   {
-    label: "Find services",
     href: "/customers",
-    description:
-      "Discover practical services from talented students and trusted providers.",
-    keywords: ["find", "service", "services", "customer", "customers", "help", "local", "request"],
+    label: (dictionary) => dictionary.customers.hero.title,
+    description: (dictionary) => dictionary.customers.hero.body,
+    source: (dictionary) => dictionary.customers,
+    aliases: {
+      en: ["customers", "find services", "request service", "book service"],
+      th: ["ลูกค้า", "ค้นหาบริการ", "ขอบริการ", "บริการ"],
+    },
   },
   {
-    label: "Offer a service",
     href: "/providers",
-    description: "Turn what you can do into a service people can find.",
-    keywords: ["offer", "provider", "providers", "skill", "skills", "work", "earn", "task", "tasks"],
+    label: (dictionary) => dictionary.providers.hero.title,
+    description: (dictionary) => dictionary.providers.hero.body,
+    source: (dictionary) => dictionary.providers,
+    aliases: {
+      en: [
+        "providers",
+        "offer service",
+        "sell service",
+        "skills",
+        "teach",
+        "cleaning",
+        "repair",
+        "design",
+        "creative",
+      ],
+      th: [
+        "ผู้ให้บริการ",
+        "ลงบริการ",
+        "ทักษะ",
+        "สอน",
+        "ติว",
+        "ทำความสะอาด",
+        "ซ่อม",
+        "ออกแบบ",
+      ],
+    },
   },
   {
-    label: "Teach or tutor",
-    href: "/providers",
-    description:
-      "Offer tutoring, language help, study support, coaching, or lessons as a service.",
-    keywords: ["teach", "teacher", "tutor", "tutoring", "lesson", "study", "language"],
-  },
-  {
-    label: "Cleaning and organizing",
-    href: "/providers",
-    description:
-      "Offer everyday help such as cleaning, organizing, moving help, or home tasks.",
-    keywords: ["clean", "cleaning", "organize", "organizing", "home", "house", "room", "task"],
-  },
-  {
-    label: "Repairs and setup",
-    href: "/providers",
-    description:
-      "Offer practical help with setup, basic repair, installation, or hands-on tasks.",
-    keywords: ["repair", "repairs", "fix", "setup", "install", "installation", "tech", "device"],
-  },
-  {
-    label: "Creative work",
-    href: "/providers",
-    description:
-      "Offer design, photography, video, writing, translation, or creative services.",
-    keywords: ["design", "photo", "photography", "video", "writing", "translate", "translation", "creative"],
-  },
-  {
-    label: "About Aany",
     href: "/about",
-    description: "Learn about Aany and the marketplace direction.",
-    keywords: ["about", "company", "aany", "student-first", "mission", "direction"],
+    label: (dictionary) => dictionary.about.hero.title,
+    description: (dictionary) => dictionary.about.hero.body,
+    source: (dictionary) => dictionary.about,
+    aliases: {
+      en: ["about", "company", "mission", "student-first", "aany"],
+      th: ["เกี่ยวกับ", "บริษัท", "ทิศทาง", "นักศึกษา", "aany"],
+    },
   },
   {
-    label: "Support center",
     href: "/support",
-    description:
-      "Get help with accounts, providers, reports, privacy, and service questions.",
-    keywords: ["support", "help", "report", "reports", "dispute", "issue", "problem", "account"],
+    label: (dictionary) => dictionary.support.hero.title,
+    description: (dictionary) => dictionary.support.hero.body,
+    source: (dictionary) => dictionary.support,
+    aliases: {
+      en: ["support", "help", "contact", "issue", "problem", "report"],
+      th: ["ช่วยเหลือ", "ศูนย์ช่วยเหลือ", "ติดต่อ", "ปัญหา", "รายงาน"],
+    },
   },
   {
-    label: "Account Deletion",
     href: "/account-deletion",
-    description: "Request account deletion and related privacy support.",
-    keywords: [
-      "account deletion",
-      "delete account",
-      "delete",
-      "deletion",
-      "account",
-      "remove account",
-      "privacy",
-      "data",
-      "close account",
-    ],
+    label: (dictionary) => dictionary.accountDeletion.hero.title,
+    description: (dictionary) => dictionary.accountDeletion.hero.body,
+    source: (dictionary) => dictionary.accountDeletion,
+    aliases: {
+      en: [
+        "account deletion",
+        "delete account",
+        "remove account",
+        "close account",
+        "delete data",
+      ],
+      th: ["การลบบัญชี", "ลบบัญชี", "ลบข้อมูล", "บัญชี", "ปิดบัญชี"],
+    },
   },
   {
-    label: "Privacy Policy",
     href: "/legal/privacy",
-    description: "Learn how Aany handles personal information.",
-    keywords: ["privacy", "data", "personal", "information", "policy"],
+    label: (dictionary) => dictionary.legal.privacy.title,
+    description: (dictionary) => dictionary.legal.privacy.body,
+    source: (dictionary) => dictionary.legal.privacy,
+    aliases: {
+      en: ["privacy", "privacy policy", "data", "personal information"],
+      th: ["ความเป็นส่วนตัว", "นโยบายความเป็นส่วนตัว", "ข้อมูล", "ข้อมูลส่วนบุคคล"],
+    },
   },
   {
-    label: "Terms of Service",
     href: "/legal/terms",
-    description: "Read the basic terms for using Aany.",
-    keywords: ["terms", "terms of service", "rules", "legal", "agreement"],
+    label: (dictionary) => dictionary.legal.terms.title,
+    description: (dictionary) => dictionary.legal.terms.body,
+    source: (dictionary) => dictionary.legal.terms,
+    aliases: {
+      en: ["terms", "terms of service", "rules", "agreement", "legal"],
+      th: ["เงื่อนไข", "เงื่อนไขการใช้บริการ", "ข้อกำหนด", "กฎหมาย"],
+    },
   },
   {
-    label: "Provider Terms",
     href: "/legal/provider-terms",
-    description:
-      "Read expectations for providers who offer services through Aany.",
-    keywords: ["provider terms", "provider", "terms", "rules", "services"],
+    label: (dictionary) => dictionary.legal.providerTerms.title,
+    description: (dictionary) => dictionary.legal.providerTerms.body,
+    source: (dictionary) => dictionary.legal.providerTerms,
+    aliases: {
+      en: ["provider terms", "provider rules", "provider agreement"],
+      th: ["เงื่อนไขผู้ให้บริการ", "กฎผู้ให้บริการ", "ผู้ให้บริการ"],
+    },
   },
   {
-    label: "Community Guidelines",
     href: "/legal/community-guidelines",
-    description:
-      "Read behavior expectations for customers, providers, and visitors.",
-    keywords: ["community", "guidelines", "rules", "behavior", "safety"],
+    label: (dictionary) => dictionary.legal.communityGuidelines.title,
+    description: (dictionary) => dictionary.legal.communityGuidelines.body,
+    source: (dictionary) => dictionary.legal.communityGuidelines,
+    aliases: {
+      en: ["community guidelines", "community", "behavior", "safety", "rules"],
+      th: ["แนวทางชุมชน", "ชุมชน", "พฤติกรรม", "ความปลอดภัย", "กฎ"],
+    },
   },
   {
-    label: "Verification Policy",
     href: "/legal/verification-policy",
-    description:
-      "Learn how verification may support trust and marketplace quality.",
-    keywords: ["verification", "verify", "identity", "student", "provider"],
+    label: (dictionary) => dictionary.legal.verificationPolicy.title,
+    description: (dictionary) => dictionary.legal.verificationPolicy.body,
+    source: (dictionary) => dictionary.legal.verificationPolicy,
+    aliases: {
+      en: ["verification", "verify", "identity", "student verification", "trust"],
+      th: ["ยืนยัน", "ยืนยันตัวตน", "ตรวจสอบ", "นักศึกษา", "ความน่าเชื่อถือ"],
+    },
   },
   {
-    label: "Reports and Disputes",
     href: "/legal/reports-and-disputes",
-    description:
-      "Learn how reports, service issues, and disputes may be reviewed.",
-    keywords: ["reports", "report", "disputes", "dispute", "issue", "safety"],
+    label: (dictionary) => dictionary.legal.reportsAndDisputes.title,
+    description: (dictionary) => dictionary.legal.reportsAndDisputes.body,
+    source: (dictionary) => dictionary.legal.reportsAndDisputes,
+    aliases: {
+      en: ["reports", "report", "disputes", "dispute", "issue", "complaint"],
+      th: ["รายงาน", "ข้อพิพาท", "ปัญหา", "ร้องเรียน", "ตรวจสอบ"],
+    },
   },
   {
-    label: "Future Payments",
     href: "/legal/future-payments",
-    description:
-      "Read how future payment, fee, wallet, or payout features may require additional terms.",
-    keywords: ["payment", "payments", "fee", "fees", "commission", "wallet", "payout", "future"],
+    label: (dictionary) => dictionary.legal.futurePayments.title,
+    description: (dictionary) => dictionary.legal.futurePayments.body,
+    source: (dictionary) => dictionary.legal.futurePayments,
+    aliases: {
+      en: ["payments", "payment", "fees", "commission", "wallet", "payout"],
+      th: ["ชำระเงิน", "การชำระเงิน", "ค่าธรรมเนียม", "คอมมิชชัน", "กระเป๋าเงิน"],
+    },
   },
 ];
 
-const thSearchIndex: ReadonlyArray<SiteSearchItem> = [
-  {
-    label: "หน้าแรก",
-    href: "/",
-    description: "บริการท้องถิ่นที่คุ้มค่าจากคนที่มีความสามารถ",
-    keywords: ["หน้าแรก", "aany", "บริการ", "ตลาดบริการ", "ท้องถิ่น"],
-  },
-  {
-    label: "ค้นหาบริการ",
-    href: "/customers",
-    description:
-      "ค้นหาบริการที่ใช้งานได้จริงจากนักศึกษาที่มีความสามารถและผู้ให้บริการที่น่าเชื่อถือ",
-    keywords: ["ค้นหา", "บริการ", "ลูกค้า", "ช่วยเหลือ", "service", "customer"],
-  },
-  {
-    label: "ลงบริการ",
-    href: "/providers",
-    description:
-      "เปลี่ยนสิ่งที่คุณทำได้ ให้เป็นบริการที่คนค้นหาเจอ",
-    keywords: ["ลงบริการ", "ผู้ให้บริการ", "ทักษะ", "งาน", "provider", "skill", "offer"],
-  },
-  {
-    label: "สอนหรือติว",
-    href: "/providers",
-    description:
-      "เสนอการติว ภาษา การสอน การโค้ช หรือบทเรียนเป็นบริการ",
-    keywords: ["สอน", "ติว", "ภาษา", "เรียน", "teach", "tutor", "lesson"],
-  },
-  {
-    label: "ทำความสะอาดและจัดระเบียบ",
-    href: "/providers",
-    description:
-      "เสนองานช่วยเหลือทั่วไป เช่น ทำความสะอาด จัดระเบียบ หรือช่วยงานบ้าน",
-    keywords: ["ทำความสะอาด", "จัดระเบียบ", "บ้าน", "clean", "cleaning"],
-  },
-  {
-    label: "ซ่อมแซมและตั้งค่า",
-    href: "/providers",
-    description:
-      "เสนอความช่วยเหลือด้านการตั้งค่า ซ่อมแซมเบื้องต้น หรืองานที่ต้องลงมือทำ",
-    keywords: ["ซ่อม", "ตั้งค่า", "ติดตั้ง", "repair", "setup", "install"],
-  },
-  {
-    label: "งานสร้างสรรค์",
-    href: "/providers",
-    description:
-      "เสนองานออกแบบ ถ่ายภาพ วิดีโอ เขียน แปลภาษา หรืองานสร้างสรรค์",
-    keywords: ["ออกแบบ", "ถ่ายภาพ", "วิดีโอ", "แปล", "design", "photo"],
-  },
-  {
-    label: "เกี่ยวกับ Aany",
-    href: "/about",
-    description: "เรียนรู้เกี่ยวกับ Aany และทิศทางของตลาดบริการ",
-    keywords: ["เกี่ยวกับ", "บริษัท", "aany", "นักศึกษา", "ทิศทาง"],
-  },
-  {
-    label: "ศูนย์ช่วยเหลือ",
-    href: "/support",
-    description:
-      "รับความช่วยเหลือเกี่ยวกับบัญชี ผู้ให้บริการ รายงาน ความเป็นส่วนตัว และบริการ",
-    keywords: ["ช่วยเหลือ", "รายงาน", "ปัญหา", "บัญชี", "support", "help"],
-  },
-  {
-    label: "การลบบัญชี",
-    href: "/account-deletion",
-    description:
-      "ขอลบบัญชีและรับความช่วยเหลือด้านความเป็นส่วนตัวที่เกี่ยวข้อง",
-    keywords: [
-      "การลบบัญชี",
-      "ลบบัญชี",
-      "ลบ",
-      "บัญชี",
-      "ข้อมูล",
-      "ความเป็นส่วนตัว",
-      "delete account",
-      "account deletion",
-    ],
-  },
-  {
-    label: "นโยบายความเป็นส่วนตัว",
-    href: "/legal/privacy",
-    description: "เรียนรู้ว่า Aany จัดการข้อมูลส่วนบุคคลอย่างไร",
-    keywords: ["ความเป็นส่วนตัว", "ข้อมูล", "นโยบาย", "privacy", "data"],
-  },
-  {
-    label: "เงื่อนไขการใช้บริการ",
-    href: "/legal/terms",
-    description: "อ่านเงื่อนไขพื้นฐานในการใช้งาน Aany",
-    keywords: ["เงื่อนไข", "ข้อกำหนด", "กฎหมาย", "terms"],
-  },
-  {
-    label: "เงื่อนไขผู้ให้บริการ",
-    href: "/legal/provider-terms",
-    description: "อ่านความคาดหวังสำหรับผู้ให้บริการบน Aany",
-    keywords: ["ผู้ให้บริการ", "เงื่อนไขผู้ให้บริการ", "provider terms"],
-  },
-  {
-    label: "แนวทางชุมชน",
-    href: "/legal/community-guidelines",
-    description: "อ่านแนวทางพฤติกรรมสำหรับลูกค้า ผู้ให้บริการ และผู้เยี่ยมชม",
-    keywords: ["แนวทาง", "ชุมชน", "ความปลอดภัย", "community"],
-  },
-  {
-    label: "นโยบายการยืนยันตัวตน",
-    href: "/legal/verification-policy",
-    description: "เรียนรู้ว่าการยืนยันข้อมูลช่วยสร้างความน่าเชื่อถืออย่างไร",
-    keywords: ["ยืนยัน", "ยืนยันตัวตน", "ตรวจสอบ", "verification"],
-  },
-  {
-    label: "รายงานและข้อพิพาท",
-    href: "/legal/reports-and-disputes",
-    description: "เรียนรู้ว่ารายงาน ปัญหาบริการ และข้อพิพาทอาจถูกตรวจสอบอย่างไร",
-    keywords: ["รายงาน", "ข้อพิพาท", "ปัญหา", "report", "dispute"],
-  },
-  {
-    label: "การชำระเงินในอนาคต",
-    href: "/legal/future-payments",
-    description: "อ่านข้อมูลเกี่ยวกับการชำระเงิน ค่าธรรมเนียม และกระเป๋าเงินในอนาคต",
-    keywords: ["ชำระเงิน", "ค่าธรรมเนียม", "กระเป๋าเงิน", "payment", "wallet"],
-  },
-];
+function collectStrings(value: unknown): string[] {
+  if (typeof value === "string") {
+    return [value];
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item) => collectStrings(item));
+  }
+
+  if (value && typeof value === "object") {
+    return Object.values(value).flatMap((item) => collectStrings(item));
+  }
+
+  return [];
+}
+
+function normalizeText(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+    .replace(/\s+/g, " ");
+}
+
+function tokenizeText(value: string) {
+  return normalizeText(value)
+    .split(/[\s-]+/)
+    .map((token) => token.trim())
+    .filter((token) => token.length >= 2);
+}
+
+function getPhrasesFromText(value: string) {
+  const normalized = normalizeText(value);
+
+  if (!normalized) {
+    return [];
+  }
+
+  const words = tokenizeText(normalized);
+  const phrases: string[] = [normalized];
+
+  for (let index = 0; index < words.length - 1; index += 1) {
+    phrases.push(`${words[index]} ${words[index + 1]}`);
+  }
+
+  return phrases;
+}
+
+function unique(values: ReadonlyArray<string>) {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const value of values) {
+    const normalized = normalizeText(value);
+
+    if (!normalized || seen.has(normalized)) {
+      continue;
+    }
+
+    seen.add(normalized);
+    result.push(normalized);
+  }
+
+  return result;
+}
+
+function buildKeywords({
+  locale,
+  route,
+  dictionary,
+}: {
+  locale: Locale;
+  route: SearchRoute;
+  dictionary: Dictionary;
+}) {
+  const strings = collectStrings(route.source(dictionary));
+
+  const generatedKeywords = strings.flatMap((text) => [
+    ...tokenizeText(text),
+    ...getPhrasesFromText(text),
+  ]);
+
+  const aliases = route.aliases?.[locale] ?? [];
+
+  return unique([...aliases, ...generatedKeywords]);
+}
 
 export function getSearchUi(locale: Locale) {
   return searchUi[locale];
@@ -279,5 +289,16 @@ export function getSearchUi(locale: Locale) {
 export function getSiteSearchIndex(
   locale: Locale,
 ): ReadonlyArray<SiteSearchItem> {
-  return locale === "th" ? thSearchIndex : enSearchIndex;
+  const dictionary = getDictionary(locale);
+
+  return searchRoutes.map((route) => ({
+    label: route.label(dictionary),
+    href: route.href,
+    description: route.description(dictionary),
+    keywords: buildKeywords({
+      locale,
+      route,
+      dictionary,
+    }),
+  }));
 }
