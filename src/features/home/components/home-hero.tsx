@@ -1,25 +1,32 @@
 import { PrimaryButton } from "@/shared/components/ui/primary-button";
-import { siteContent } from "@/shared/content/site";
+import { homeContent } from "../content";
 
 export function HomeHero() {
   return (
-    <section className="mx-auto grid max-w-6xl items-center gap-10 px-7 py-16 lg:grid-cols-[1.25fr_0.75fr] lg:py-20">
+    <section className="mx-auto grid max-w-6xl items-center gap-10 px-7 py-16 lg:grid-cols-[1.2fr_0.8fr] lg:py-20">
       <div>
         <p className="inline-flex rounded-full bg-black/[0.06] px-4 py-2 text-sm font-bold text-[#171217]">
-          {siteContent.home.eyebrow}
+          {homeContent.hero.eyebrow}
         </p>
 
         <h1 className="mt-6 max-w-4xl text-4xl font-semibold leading-[1.12] tracking-normal text-[#171217] sm:text-5xl lg:text-[48px]">
-          {siteContent.home.title}
+          {homeContent.hero.title}
         </h1>
 
         <p className="mt-6 max-w-2xl text-lg leading-8 tracking-normal text-black/60">
-          {siteContent.home.body}
+          {homeContent.hero.body}
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <PrimaryButton label="Explore the vision" href="/about" />
-          <PrimaryButton label="For providers" href="/providers" variant="light" />
+          <PrimaryButton
+            label={homeContent.hero.primaryAction.label}
+            href={homeContent.hero.primaryAction.href}
+          />
+          <PrimaryButton
+            label={homeContent.hero.secondaryAction.label}
+            href={homeContent.hero.secondaryAction.href}
+            variant="light"
+          />
         </div>
       </div>
 
@@ -28,19 +35,19 @@ export function HomeHero() {
 
         <div className="mt-32">
           <h2 className="text-3xl font-semibold leading-tight tracking-normal">
-            Built for launch, ready to grow.
+            Student-first, open marketplace.
           </h2>
 
           <p className="mt-5 text-base leading-7 tracking-normal text-white/70">
-            A clean foundation for customers, providers, trust, support, and future operations.
+            Built to highlight student talent while keeping room for trusted providers and practical customer needs.
           </p>
 
           <div className="mt-7 grid grid-cols-2 gap-3">
             <div className="rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold">
-              Student-first
+              Student visibility
             </div>
             <div className="rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold">
-              Open marketplace
+              Trusted support
             </div>
           </div>
         </div>
