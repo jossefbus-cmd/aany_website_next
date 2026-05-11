@@ -3,14 +3,19 @@
 import Link from "next/link";
 import { useEffect } from "react";
 
-import { siteContent } from "@/shared/content/site";
+import { getUiDictionary } from "@/shared/i18n/ui-dictionary";
+import type { Locale } from "@/shared/i18n/locales";
+import { localizeHref } from "@/shared/i18n/routing";
 
 type MobileMenuProps = {
   open: boolean;
+  locale: Locale;
   onClose: () => void;
 };
 
-export function MobileMenu({ open, onClose }: MobileMenuProps) {
+export function MobileMenu({ open, locale, onClose }: MobileMenuProps) {
+  const ui = getUiDictionary(locale);
+
   useEffect(() => {
     if (!open) {
       return;
@@ -29,20 +34,18 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     };
   }, [open, onClose]);
 
-
   useEffect(() => {
-  if (!open) {
-    return;
-  }
+    if (!open) {
+      return;
+    }
 
-  const originalOverflow = document.body.style.overflow;
-  document.body.style.overflow = "hidden";
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
-  return () => {
-    document.body.style.overflow = originalOverflow;
-  };
-}, [open]);
-
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [open]);
 
   return (
     <div
@@ -60,10 +63,10 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           aria-label="Mobile navigation"
         >
           <div className="grid gap-1">
-            {siteContent.navigation.main.map((item) => (
+            {ui.navigation.main.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={localizeHref(item.href, locale)}
                 onClick={onClose}
                 className="rounded-2xl px-4 py-4 text-2xl font-semibold text-[#171217] transition hover:bg-black/[0.05]"
               >
@@ -74,14 +77,14 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
 
           <div className="mt-4 border-t border-black/10 pt-4">
             <p className="px-4 text-xs font-bold uppercase tracking-[0.14em] text-black/40">
-              Legal
+              {locale === "th" ? "กฎหมาย" : "Legal"}
             </p>
 
             <div className="mt-2 grid gap-1">
-              {siteContent.navigation.legal.map((item) => (
+              {ui.navigation.legal.map((item) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={localizeHref(item.href, locale)}
                   onClick={onClose}
                   className="rounded-2xl px-4 py-3 text-base font-semibold text-black/60 transition hover:bg-black/[0.05] hover:text-black"
                 >

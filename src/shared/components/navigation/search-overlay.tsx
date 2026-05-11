@@ -1,40 +1,49 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { siteSearchIndex } from "@/shared/search/site-search-index";
+import type { Locale } from "@/shared/i18n/locales";
+import { localizeHref } from "@/shared/i18n/routing";
+import {
+  getSearchUi,
+  getSiteSearchIndex,
+  type SiteSearchItem,
+} from "@/shared/search/site-search-index";
 
 type SearchOverlayProps = {
   open: boolean;
+  locale: Locale;
   onClose: () => void;
 };
 
-type SearchItem = (typeof siteSearchIndex)[number];
+function normalize(value: string) {
+  return value.trim().toLowerCase();
+}
 
-function getSearchScore(item: SearchItem, query: string): number {
-  const label = item.label.toLowerCase();
-  const description = item.description.toLowerCase();
-  const keywords = item.keywords.map((keyword) => keyword.toLowerCase());
+function getSearchScore(item: SiteSearchItem, query: string): number {
+  const label = normalize(item.label);
+  const description = normalize(item.description);
+  const keywords = item.keywords.map((keyword) => normalize(keyword));
 
   if (label === query) return 1000;
-  if (label.startsWith(query)) return 900;
-  if (label.includes(query)) return 800;
+  if (label.startsWith(query)) return 950;
+  if (label.includes(query)) return 900;
 
-  if (keywords.some((keyword) => keyword === query)) return 700;
-  if (keywords.some((keyword) => keyword.startsWith(query))) return 650;
-  if (keywords.some((keyword) => keyword.includes(query))) return 600;
+  if (keywords.some((keyword) => keyword === query)) return 850;
+  if (keywords.some((keyword) => keyword.startsWith(query))) return 800;
+  if (keywords.some((keyword) => keyword.includes(query))) return 750;
 
-  if (description.includes(query)) return 400;
+  if (description.includes(query)) return 500;
 
   return 0;
 }
 
-function removeDuplicateResults(items: ReadonlyArray<SearchItem>) {
+function uniqueResults(items: ReadonlyArray<SiteSearchItem>) {
   const seen = new Set<string>();
 
   return items.filter((item) => {
-    const key = `${item.href}-${item.label}`;
+    const key = `${normalize(item.href)}-${normalize(item.label)}`;
 
     if (seen.has(key)) {
       return false;
@@ -45,13 +54,15 @@ function removeDuplicateResults(items: ReadonlyArray<SearchItem>) {
   });
 }
 
-export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
+export function SearchOverlay({ open, locale, onClose }: SearchOverlayProps) {
   const [query, setQuery] = useState("");
+  const searchUi = getSearchUi(locale);
+  const searchIndex = getSiteSearchIndex(locale);
 
-  function closeSearch() {
+  const closeSearch = useCallback(() => {
     setQuery("");
     onClose();
-  }
+  }, [onClose]);
 
   useEffect(() => {
     if (!open) {
@@ -69,7 +80,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open]);
+  }, [open, closeSearch]);
 
   useEffect(() => {
     if (!open) {
@@ -85,23 +96,29 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
   }, [open]);
 
   const results = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = normalize(query);
 
     if (!normalizedQuery) {
-      return siteSearchIndex.slice(0, 6);
+      return searchIndex.slice(0, 6);
     }
 
-    const scoredResults = siteSearchIndex
+    const scoredResults = searchIndex
       .map((item) => ({
         item,
         score: getSearchScore(item, normalizedQuery),
       }))
       .filter((result) => result.score > 0)
-      .sort((a, b) => b.score - a.score)
+      .sort((a, b) => {
+        if (b.score !== a.score) {
+          return b.score - a.score;
+        }
+
+        return a.item.label.localeCompare(b.item.label);
+      })
       .map((result) => result.item);
 
-    return removeDuplicateResults(scoredResults);
-  }, [query]);
+    return uniqueResults(scoredResults);
+  }, [query, searchIndex]);
 
   return (
     <div
@@ -114,7 +131,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
     >
       <button
         type="button"
-        aria-label="Close search"
+        aria-label={searchUi.close}
         onClick={closeSearch}
         className="absolute inset-0 cursor-default bg-white/30 backdrop-blur-md"
       />
@@ -134,7 +151,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search aany"
+            placeholder={searchUi.placeholder}
             className="h-full flex-1 bg-transparent text-2xl font-semibold text-[#171217] outline-none placeholder:text-black/30"
           />
 
@@ -143,13 +160,13 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
             onClick={closeSearch}
             className="rounded-full px-4 py-2 text-sm font-semibold text-black/55 transition hover:bg-black/[0.06] hover:text-black"
           >
-            Close
+            {searchUi.close}
           </button>
         </div>
 
         <div className="border-t border-black/10 px-6 py-6">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-black/40">
-            {query.trim() ? "Search results" : "Quick links"}
+            {query.trim() ? searchUi.results : searchUi.quickLinks}
           </p>
 
           <div className="mt-4 grid max-h-[52vh] gap-2 overflow-y-auto pr-1">
@@ -157,7 +174,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
               results.map((item) => (
                 <Link
                   key={`${item.href}-${item.label}`}
-                  href={item.href}
+                  href={localizeHref(item.href, locale)}
                   onClick={closeSearch}
                   className="rounded-2xl px-4 py-3 transition hover:bg-black/[0.05]"
                 >
@@ -171,7 +188,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
               ))
             ) : (
               <div className="rounded-2xl px-4 py-5 text-base font-medium text-black/50">
-                No results found.
+                {searchUi.noResults}
               </div>
             )}
           </div>

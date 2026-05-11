@@ -1,3 +1,5 @@
+import type { Locale } from "@/shared/i18n/locales";
+
 export type SiteSearchItem = {
   label: string;
   href: string;
@@ -5,219 +7,132 @@ export type SiteSearchItem = {
   keywords: ReadonlyArray<string>;
 };
 
-export const siteSearchIndex: ReadonlyArray<SiteSearchItem> = [
+export const searchUi = {
+  en: {
+    placeholder: "Search aany",
+    close: "Close",
+    quickLinks: "Quick links",
+    results: "Search results",
+    noResults: "No results found.",
+  },
+  th: {
+    placeholder: "ค้นหาใน Aany",
+    close: "ปิด",
+    quickLinks: "ลิงก์ด่วน",
+    results: "ผลการค้นหา",
+    noResults: "ไม่พบผลลัพธ์",
+  },
+} as const;
+
+const enSearchIndex: ReadonlyArray<SiteSearchItem> = [
   {
     label: "Find services",
     href: "/customers",
     description:
       "Discover practical services from talented students and trusted providers.",
-    keywords: [
-      "find",
-      "service",
-      "services",
-      "customer",
-      "customers",
-      "help",
-      "local",
-      "need",
-      "request",
-    ],
+    keywords: ["find", "service", "services", "customer", "help", "local"],
   },
   {
     label: "Offer a service",
     href: "/providers",
-    description:
-      "Turn what you can do into a service people can find.",
-    keywords: [
-      "offer",
-      "provider",
-      "providers",
-      "skill",
-      "skills",
-      "work",
-      "earn",
-      "service",
-      "services",
-      "task",
-      "tasks",
-    ],
+    description: "Turn what you can do into a service people can find.",
+    keywords: ["offer", "provider", "skill", "skills", "work", "tasks"],
   },
   {
     label: "Teach or tutor",
     href: "/providers",
     description:
       "Offer tutoring, language help, study support, coaching, or lessons as a service.",
-    keywords: [
-      "teach",
-      "teacher",
-      "tutor",
-      "tutoring",
-      "lesson",
-      "lessons",
-      "study",
-      "student",
-      "language",
-      "english",
-      "thai",
-      "japanese",
-      "coach",
-      "coaching",
-    ],
+    keywords: ["teach", "teacher", "tutor", "lesson", "study", "language"],
   },
   {
     label: "Cleaning and organizing",
     href: "/providers",
     description:
       "Offer everyday help such as cleaning, organizing, moving help, or home tasks.",
-    keywords: [
-      "clean",
-      "cleaning",
-      "organize",
-      "organizing",
-      "home",
-      "house",
-      "room",
-      "move",
-      "moving",
-      "errand",
-      "errands",
-      "task",
-      "tasks",
-    ],
+    keywords: ["clean", "cleaning", "organize", "home", "house", "tasks"],
   },
   {
     label: "Repairs and setup",
     href: "/providers",
     description:
       "Offer practical help with setup, basic repair, installation, or hands-on tasks.",
-    keywords: [
-      "repair",
-      "repairs",
-      "fix",
-      "setup",
-      "install",
-      "installation",
-      "tech",
-      "phone",
-      "computer",
-      "wifi",
-      "device",
-      "hands-on",
-    ],
+    keywords: ["repair", "fix", "setup", "install", "tech", "device"],
   },
   {
     label: "Creative work",
     href: "/providers",
     description:
       "Offer design, photography, video, writing, translation, or creative services.",
-    keywords: [
-      "design",
-      "designer",
-      "photo",
-      "photography",
-      "video",
-      "edit",
-      "editing",
-      "write",
-      "writing",
-      "translate",
-      "translation",
-      "creative",
-      "content",
-    ],
-  },
-  {
-    label: "Personal help and errands",
-    href: "/providers",
-    description:
-      "Offer flexible everyday help for people who need support with simple tasks.",
-    keywords: [
-      "help",
-      "assistant",
-      "assist",
-      "errand",
-      "errands",
-      "personal",
-      "delivery",
-      "buy",
-      "pickup",
-      "queue",
-      "support",
-    ],
+    keywords: ["design", "photo", "video", "write", "translate", "creative"],
   },
   {
     label: "Support center",
     href: "/support",
     description:
       "Get help with accounts, providers, reports, privacy, and service questions.",
-    keywords: [
-      "support",
-      "help",
-      "report",
-      "reports",
-      "dispute",
-      "disputes",
-      "issue",
-      "problem",
-      "account",
-    ],
+    keywords: ["support", "help", "report", "dispute", "issue", "account"],
+  },
+];
+
+const thSearchIndex: ReadonlyArray<SiteSearchItem> = [
+  {
+    label: "ค้นหาบริการ",
+    href: "/customers",
+    description:
+      "ค้นหาบริการที่ใช้งานได้จริงจากนักศึกษาที่มีความสามารถและผู้ให้บริการที่น่าเชื่อถือ",
+    keywords: ["ค้นหา", "บริการ", "ลูกค้า", "ช่วยเหลือ", "local", "service"],
   },
   {
-    label: "Privacy Policy",
-    href: "/legal/privacy",
+    label: "ลงบริการ",
+    href: "/providers",
     description:
-      "Learn how Aany handles personal information.",
-    keywords: ["privacy", "data", "personal", "information", "policy"],
+      "เปลี่ยนสิ่งที่คุณทำได้ ให้เป็นบริการที่คนค้นหาเจอ",
+    keywords: ["ลงบริการ", "ผู้ให้บริการ", "ทักษะ", "งาน", "skill", "offer"],
   },
   {
-    label: "Account Deletion",
-    href: "/account-deletion",
+    label: "สอนหรือติว",
+    href: "/providers",
     description:
-      "Request account deletion and related privacy support.",
-    keywords: ["delete", "deletion", "account", "remove", "privacy", "data"],
+      "เสนอการติว ภาษา การสอน การโค้ช หรือบทเรียนเป็นบริการ",
+    keywords: ["สอน", "ติว", "ภาษา", "เรียน", "teach", "tutor", "lesson"],
   },
   {
-    label: "Provider Terms",
-    href: "/legal/provider-terms",
+    label: "ทำความสะอาดและจัดระเบียบ",
+    href: "/providers",
     description:
-      "Read expectations for providers who offer services through Aany.",
-    keywords: ["provider", "terms", "rules", "service", "services"],
+      "เสนองานช่วยเหลือทั่วไป เช่น ทำความสะอาด จัดระเบียบ หรือช่วยงานบ้าน",
+    keywords: ["ทำความสะอาด", "จัดระเบียบ", "บ้าน", "clean", "cleaning"],
   },
   {
-    label: "Community Guidelines",
-    href: "/legal/community-guidelines",
+    label: "ซ่อมแซมและตั้งค่า",
+    href: "/providers",
     description:
-      "Read behavior expectations for customers, providers, and visitors.",
-    keywords: ["community", "guidelines", "rules", "behavior", "safety"],
+      "เสนอความช่วยเหลือด้านการตั้งค่า ซ่อมแซมเบื้องต้น หรืองานที่ต้องลงมือทำ",
+    keywords: ["ซ่อม", "ตั้งค่า", "ติดตั้ง", "repair", "setup", "install"],
   },
   {
-    label: "Verification Policy",
-    href: "/legal/verification-policy",
+    label: "งานสร้างสรรค์",
+    href: "/providers",
     description:
-      "Learn how verification may support trust and marketplace quality.",
-    keywords: ["verification", "verify", "identity", "student", "provider"],
+      "เสนองานออกแบบ ถ่ายภาพ วิดีโอ เขียน แปลภาษา หรืองานสร้างสรรค์",
+    keywords: ["ออกแบบ", "ถ่ายภาพ", "วิดีโอ", "แปล", "design", "photo"],
   },
   {
-    label: "Reports and Disputes",
-    href: "/legal/reports-and-disputes",
+    label: "ศูนย์ช่วยเหลือ",
+    href: "/support",
     description:
-      "Learn how reports, service issues, and disputes may be reviewed.",
-    keywords: ["reports", "report", "disputes", "dispute", "issue", "safety"],
+      "รับความช่วยเหลือเกี่ยวกับบัญชี ผู้ให้บริการ รายงาน ความเป็นส่วนตัว และบริการ",
+    keywords: ["ช่วยเหลือ", "รายงาน", "ปัญหา", "บัญชี", "support", "help"],
   },
-  {
-    label: "Future Payments",
-    href: "/legal/future-payments",
-    description:
-      "Read how future payment, fee, wallet, or payout features may require additional terms.",
-    keywords: [
-      "payment",
-      "payments",
-      "fee",
-      "fees",
-      "commission",
-      "wallet",
-      "payout",
-      "future",
-    ],
-  },
-] as const;
+];
+
+export function getSearchUi(locale: Locale) {
+  return searchUi[locale];
+}
+
+export function getSiteSearchIndex(
+  locale: Locale,
+): ReadonlyArray<SiteSearchItem> {
+  return locale === "th" ? thSearchIndex : enSearchIndex;
+}
