@@ -1,38 +1,62 @@
 export const providersContent = {
   hero: {
     eyebrow: "For providers",
-    title: "Get discovered for the services you can offer.",
+    title: "Turn what you can do into a service people can find.",
     body:
-      "Aany helps talented student providers become more visible while keeping the marketplace open to trusted providers who meet clear service expectations.",
+      "Whether you can teach, clean, repair, create, organize, guide, assist, or help with everyday tasks, Aany gives you a clearer place to present your service and be discovered.",
   },
 
   steps: {
     eyebrow: "Provider experience",
-    title: "A clearer place to present your work.",
+    title: "A marketplace for real skills, not fixed categories.",
     body:
-      "Aany is designed to help providers present services clearly, build customer confidence, and participate in a marketplace that values trust and responsibility.",
+      "Aany is designed for flexible services. You do not need to fit into one narrow category — if your skill can help someone, it can become a service people can understand and request.",
   },
 
   cards: [
     {
-      title: "Present your services",
+      title: "Offer everyday help",
       body:
-        "Share what you offer in a clear way so customers can understand your service and decide whether it fits their needs.",
+        "Cleaning, errands, organizing, moving help, basic setup, tutoring, or simple tasks can become practical services people may need.",
     },
     {
-      title: "Build confidence",
+      title: "Offer skilled work",
       body:
-        "Clear information, responsible communication, and reliable service delivery help create stronger customer trust.",
+        "Design, photography, translation, repair, coaching, teaching, creative work, and specialized help can be presented clearly as services.",
     },
     {
-      title: "Student visibility",
+      title: "Start with what you know",
       body:
-        "Aany gives talented student providers a stronger place to be discovered by customers.",
+        "Aany is built for people who have useful skills but need a better way to be discovered by customers.",
     },
     {
-      title: "Trusted participation",
+      title: "Build trust as you grow",
       body:
-        "The marketplace can also include trusted non-student providers who follow platform expectations.",
+        "Clear descriptions, responsible communication, and reliable delivery help customers choose you with more confidence.",
     },
   ],
+
+  flexible: {
+    eyebrow: "Flexible services",
+    title: "If you can help with it, you can offer it.",
+    body:
+      "Aany is not built around a small fixed list of services. It is built for real people with useful skills, local knowledge, practical help, and creative abilities.",
+    items: [
+      {
+        title: "From small tasks to skilled services",
+        body:
+          "A service can be simple, specialized, creative, educational, practical, or local. The important thing is that customers can understand what you offer.",
+      },
+      {
+        title: "Good descriptions make services easier to trust",
+        body:
+          "The clearer you explain what you do, what is included, and who it helps, the easier it becomes for customers to decide.",
+      },
+      {
+        title: "Student-first, but open to trusted providers",
+        body:
+          "Aany highlights student talent while keeping the marketplace open to non-student providers who meet platform expectations.",
+      },
+    ],
+  },
 } as const;

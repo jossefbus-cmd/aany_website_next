@@ -35,19 +35,19 @@ export function HomeHero() {
 
         <div className="mt-32">
           <h2 className="text-3xl font-semibold leading-tight tracking-normal">
-  Talent, value, and trust in one marketplace.
+  Smart value from real people.
 </h2>
 
 <p className="mt-5 text-base leading-7 tracking-normal text-white/70">
-  Aany helps customers find real services while giving talented student providers and trusted providers a better place to be discovered.
+  Aany connects customer needs with talented students and trusted providers — turning useful skills into accessible services.
 </p>
 
           <div className="mt-7 grid grid-cols-2 gap-3">
             <div className="rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold">
-  Smart value
+  Real services
 </div>
 <div className="rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold">
-  Trusted talent
+  Smarter prices
 </div>
           </div>
         </div>

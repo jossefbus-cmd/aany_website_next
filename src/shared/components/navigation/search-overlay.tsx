@@ -3,96 +3,55 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import { siteContent } from "@/shared/content/site";
+import { siteSearchIndex } from "@/shared/search/site-search-index";
 
 type SearchOverlayProps = {
   open: boolean;
   onClose: () => void;
 };
 
-const searchablePages = [
-  {
-    label: "Home",
-    href: "/",
-    description: "Student-first services marketplace.",
-    keywords: ["home", "aany", "student", "services", "marketplace"],
-  },
-  {
-    label: "Customers",
-    href: "/customers",
-    description: "Find services from students and trusted providers.",
-    keywords: ["customers", "customer", "services", "request", "discover"],
-  },
-  {
-    label: "Providers",
-    href: "/providers",
-    description: "Offer your skills in a trusted marketplace.",
-    keywords: ["providers", "provider", "student", "services", "skills"],
-  },
-  {
-    label: "About aany",
-    href: "/about",
-    description: "Learn about aany and the student-first direction.",
-    keywords: ["about", "vision", "student-first", "marketplace"],
-  },
-  {
-    label: "Support",
-    href: "/support",
-    description: "Get help with accounts, providers, reports, and requests.",
-    keywords: ["support", "help", "reports", "disputes", "account"],
-  },
-  {
-    label: "Account Deletion",
-    href: "/account-deletion",
-    description: "Request account deletion and privacy support.",
-    keywords: ["account", "deletion", "delete", "privacy", "data"],
-  },
-  {
-    label: "Privacy Policy",
-    href: "/legal/privacy",
-    description: "How aany handles personal information.",
-    keywords: ["privacy", "data", "personal", "information", "policy"],
-  },
-  {
-    label: "Terms of Service",
-    href: "/legal/terms",
-    description: "Rules for using aany.",
-    keywords: ["terms", "service", "rules", "users"],
-  },
-    {
-    label: "Provider Terms",
-    href: "/legal/provider-terms",
-    description: "Rules and expectations for providers.",
-    keywords: ["provider", "terms", "rules", "verification", "services"],
-  },
-  {
-    label: "Community Guidelines",
-    href: "/legal/community-guidelines",
-    description: "Behavior expectations for customers, providers, and visitors.",
-    keywords: ["community", "guidelines", "behavior", "rules", "safety"],
-  },
-  {
-    label: "Verification Policy",
-    href: "/legal/verification-policy",
-    description: "How Aany may review provider or user information.",
-    keywords: ["verification", "verify", "identity", "provider", "student"],
-  },
-  {
-    label: "Reports and Disputes",
-    href: "/legal/reports-and-disputes",
-    description: "How Aany may receive, review, and respond to reports.",
-    keywords: ["reports", "report", "disputes", "dispute", "issues", "safety"],
-  },
-  {
-    label: "Future Payments",
-    href: "/legal/future-payments",
-    description: "Future payment, fee, commission, wallet, and payout terms.",
-    keywords: ["payments", "payment", "future", "fees", "commission", "wallet", "payout"],
-  },
-];
+type SearchItem = (typeof siteSearchIndex)[number];
+
+function getSearchScore(item: SearchItem, query: string): number {
+  const label = item.label.toLowerCase();
+  const description = item.description.toLowerCase();
+  const keywords = item.keywords.map((keyword) => keyword.toLowerCase());
+
+  if (label === query) return 1000;
+  if (label.startsWith(query)) return 900;
+  if (label.includes(query)) return 800;
+
+  if (keywords.some((keyword) => keyword === query)) return 700;
+  if (keywords.some((keyword) => keyword.startsWith(query))) return 650;
+  if (keywords.some((keyword) => keyword.includes(query))) return 600;
+
+  if (description.includes(query)) return 400;
+
+  return 0;
+}
+
+function removeDuplicateResults(items: ReadonlyArray<SearchItem>) {
+  const seen = new Set<string>();
+
+  return items.filter((item) => {
+    const key = `${item.href}-${item.label}`;
+
+    if (seen.has(key)) {
+      return false;
+    }
+
+    seen.add(key);
+    return true;
+  });
+}
 
 export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
   const [query, setQuery] = useState("");
+
+  function closeSearch() {
+    setQuery("");
+    onClose();
+  }
 
   useEffect(() => {
     if (!open) {
@@ -101,7 +60,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        onClose();
+        closeSearch();
       }
     }
 
@@ -110,43 +69,38 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open, onClose]);
+  }, [open]);
 
-useEffect(() => {
-  if (!open) {
-    return;
-  }
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
 
-  const originalOverflow = document.body.style.overflow;
-  document.body.style.overflow = "hidden";
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
-  return () => {
-    document.body.style.overflow = originalOverflow;
-  };
-}, [open]);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [open]);
 
   const results = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
     if (!normalizedQuery) {
-      return siteContent.navigation.searchQuickLinks.map((item) => ({
-        label: item.label,
-        href: item.href,
-        description: "Quick link",
-      }));
+      return siteSearchIndex.slice(0, 6);
     }
 
-    return searchablePages.filter((page) => {
-      const searchableText = [
-        page.label,
-        page.description,
-        ...page.keywords,
-      ]
-        .join(" ")
-        .toLowerCase();
+    const scoredResults = siteSearchIndex
+      .map((item) => ({
+        item,
+        score: getSearchScore(item, normalizedQuery),
+      }))
+      .filter((result) => result.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map((result) => result.item);
 
-      return searchableText.includes(normalizedQuery);
-    });
+    return removeDuplicateResults(scoredResults);
   }, [query]);
 
   return (
@@ -161,10 +115,7 @@ useEffect(() => {
       <button
         type="button"
         aria-label="Close search"
-        onClick={() => {
-  setQuery("");
-  onClose();
-}}
+        onClick={closeSearch}
         className="absolute inset-0 cursor-default bg-white/30 backdrop-blur-md"
       />
 
@@ -189,10 +140,7 @@ useEffect(() => {
 
           <button
             type="button"
-            onClick={() => {
-  setQuery("");
-  onClose();
-}}
+            onClick={closeSearch}
             className="rounded-full px-4 py-2 text-sm font-semibold text-black/55 transition hover:bg-black/[0.06] hover:text-black"
           >
             Close
@@ -208,12 +156,9 @@ useEffect(() => {
             {results.length > 0 ? (
               results.map((item) => (
                 <Link
-                  key={item.href}
+                  key={`${item.href}-${item.label}`}
                   href={item.href}
-                  onClick={() => {
-  setQuery("");
-  onClose();
-}}
+                  onClick={closeSearch}
                   className="rounded-2xl px-4 py-3 transition hover:bg-black/[0.05]"
                 >
                   <span className="block text-lg font-semibold text-[#171217]">

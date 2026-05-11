@@ -3,7 +3,7 @@ export const customersContent = {
     eyebrow: "For customers",
     title: "Find real services at smarter prices.",
     body:
-      "Aany helps customers discover useful services from talented students and trusted providers through a simple marketplace built around value and confidence.",
+      "Aany helps customers discover useful services from talented students and trusted providers — whether the need is simple, skilled, creative, practical, or local.",
   },
 
   flow: {
@@ -17,7 +17,7 @@ export const customersContent = {
     {
       title: "Discover useful services",
       body:
-        "Explore practical service options from talented people who can help with real needs.",
+        "Explore practical service options from people with real skills, not just fixed categories or generic listings.",
     },
     {
       title: "Choose with more confidence",
