@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-
 import { LegalPageShell } from "@/features/legal/components/legal-page-shell";
 import { providerTermsContent } from "@/features/legal/provider-terms-content";
+import { buildMetadata } from "@/shared/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Provider Terms",
   description:
-    "Read the expected terms for providers offering services through aany.",
-};
+    "Read the basic expectations for providers who offer services through aany.",
+  path: "/legal/provider-terms",
+});
 
 export default function Page() {
   return (
