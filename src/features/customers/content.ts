@@ -1,38 +1,38 @@
 export const customersContent = {
   hero: {
     eyebrow: "For customers",
-    title: "Find services from students and trusted providers.",
+    title: "Find useful services with more confidence.",
     body:
-      "aany is designed to help customers discover useful services, compare options, and request help through a clean marketplace experience.",
+      "aany helps customers discover practical services from student providers and trusted providers through a clear, simple marketplace experience.",
   },
 
   flow: {
     eyebrow: "Customer experience",
-    title: "A simple path from discovery to support.",
+    title: "A simpler way to discover and request services.",
     body:
-      "The first customer experience focuses on discovering services, understanding providers, requesting help, and having clear support paths when something needs attention.",
+      "The customer experience is designed around clarity: find the right service, understand the provider, request help, and access support when needed.",
   },
 
   steps: [
     {
-      title: "Discover",
+      title: "Discover services",
       body:
-        "Browse and search for useful services in a marketplace designed to highlight student talent and trusted providers.",
+        "Explore practical service options in a marketplace built to highlight student talent and trusted providers.",
     },
     {
-      title: "Compare",
+      title: "Understand providers",
       body:
-        "Understand services, provider signals, availability, and the basic details needed before requesting help.",
+        "Review service information, provider details, and trust signals that help customers make more informed choices.",
     },
     {
-      title: "Request",
+      title: "Request help",
       body:
-        "Start a service request through a clear flow built around matching, availability, and follow-up.",
+        "Use clear request flows designed to make it easier to ask for services and follow the next steps.",
     },
     {
       title: "Get support",
       body:
-        "Use support paths for account help, reports, disputes, privacy questions, and account deletion requests.",
+        "Access support paths for account help, service issues, reports, privacy questions, and account deletion requests.",
     },
   ],
 } as const;

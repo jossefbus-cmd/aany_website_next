@@ -3,7 +3,7 @@ export const accountDeletionContent = {
     eyebrow: "Account deletion",
     title: "Request account deletion.",
     body:
-      "aany provides a clear path for users to request deletion of their account and related personal information.",
+  "Aany, operated by Al Aziz Co., Ltd., provides a clear path for users to request deletion of their account and related personal information.",
   },
 
   sections: [

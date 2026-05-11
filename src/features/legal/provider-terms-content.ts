@@ -2,14 +2,14 @@ export const providerTermsContent = {
   eyebrow: "Provider Terms",
   title: "Provider Terms",
   body:
-    "These Provider Terms explain the basic expectations for providers who offer services through aany.",
+  "These Provider Terms explain the basic expectations for providers who offer services through Aany, operated by Al Aziz Co., Ltd.",
 
   sections: [
     {
-      title: "Independent providers",
-      body:
-        "Providers using aany are independent service providers and are not employees of aany. Providers are responsible for the quality, safety, accuracy, availability, and delivery of the services they offer.",
-    },
+  title: "Independent providers",
+  body:
+    "Providers using Aany are independent service providers and are not employees of Al Aziz Co., Ltd. or Aany. Providers are responsible for the quality, safety, accuracy, availability, and delivery of the services they offer.",
+},
     {
       title: "Service information",
       body:

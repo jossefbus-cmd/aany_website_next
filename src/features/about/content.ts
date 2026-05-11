@@ -1,38 +1,38 @@
 export const aboutContent = {
   hero: {
     eyebrow: "About aany",
-    title: "A marketplace built to support student opportunity.",
+    title: "A student-first marketplace for practical services.",
     body:
-      "aany is being built as a student-first services marketplace: a platform that helps customers discover useful services while giving students and trusted providers a clearer path to offer their skills.",
+      "aany is being built to help people discover useful services while creating a clearer path for student providers to be seen and trusted providers to offer their work.",
   },
 
   mission: {
     eyebrow: "Our direction",
     title: "Student-first, not student-only.",
     body:
-      "aany highlights students as a core part of the experience while keeping the marketplace open to non-student providers who follow platform expectations.",
+      "aany highlights students as a core part of the experience while keeping the marketplace open to trusted non-student providers.",
   },
 
   cards: [
     {
-      title: "Support students",
+      title: "Support opportunity",
       body:
-        "The product positioning is designed to help students be discovered and receive real service opportunities.",
+        "The product is positioned to help students gain visibility and access real service opportunities.",
     },
     {
-      title: "Stay open",
+      title: "Stay practical",
       body:
-        "The marketplace remains open to trusted non-student providers instead of becoming a closed student-only platform.",
+        "Customers should be able to discover useful services without needing to understand internal systems or complex workflows.",
     },
     {
-      title: "Help customers discover",
+      title: "Keep the marketplace open",
       body:
-        "Customers should be able to find useful services quickly through clear discovery, search, and matching flows.",
+        "aany is not designed to exclude non-student providers; it is designed to give student providers a stronger presence.",
     },
     {
-      title: "Build trust over time",
+      title: "Build trust carefully",
       body:
-        "Trust, support, verification, reporting, and clear policies are part of the foundation as the platform grows.",
+        "Support, privacy, reporting, and clear provider expectations are part of the foundation for a healthier marketplace.",
     },
   ],
 } as const;

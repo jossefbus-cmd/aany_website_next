@@ -1,38 +1,38 @@
 export const providersContent = {
   hero: {
     eyebrow: "For providers",
-    title: "Offer your skills in a trusted marketplace.",
+    title: "Offer services in a marketplace built for trust.",
     body:
-      "aany is built to highlight student providers first, while keeping the marketplace open to trusted non-student providers as well.",
+      "aany gives student providers more visibility while keeping the marketplace open to trusted providers who meet clear service expectations.",
   },
 
   steps: {
     eyebrow: "Provider experience",
-    title: "A clearer path to offer services.",
+    title: "A clearer place to present your work.",
     body:
-      "Providers need a simple way to present services, manage availability, build trust, and follow marketplace rules. Student-first means students are highlighted, not that other providers are excluded.",
+      "Providers need simple tools, clear expectations, and trust-building pathways. aany is designed to support that foundation as the marketplace grows.",
   },
 
   cards: [
     {
-      title: "Create services",
+      title: "Present your services",
       body:
-        "Prepare service descriptions, categories, availability details, and useful information for customers.",
+        "Share service information clearly so customers can understand what you offer and how your work fits their needs.",
     },
     {
       title: "Build trust",
       body:
-        "Verification, quality signals, support paths, and clear provider responsibilities help the marketplace stay reliable.",
+        "Accurate information, responsible service delivery, and support processes help build confidence across the marketplace.",
     },
     {
       title: "Student-first visibility",
       body:
-        "The product is positioned to support students and help customers discover student talent first.",
+        "aany is positioned to help student providers become more visible and access meaningful opportunities.",
     },
     {
-      title: "Open marketplace",
+      title: "Open participation",
       body:
-        "Non-student providers can still participate when they follow marketplace rules and service expectations.",
+        "The marketplace can also include trusted non-student providers who follow platform expectations.",
     },
   ],
 } as const;

@@ -41,9 +41,7 @@ export function SiteFooter() {
     <footer className="bg-[#ededed] px-7 py-10">
       <div className="mx-auto max-w-6xl">
         <p className="max-w-4xl text-sm leading-7 text-black/55">
-          aany is a student-first services marketplace. The platform is designed
-          to highlight student providers while remaining open to trusted
-          non-student providers.
+          Aany is a student-first services marketplace operated by Al Aziz Co., Ltd. The platform is designed to highlight student providers while remaining open to trusted non-student providers.
         </p>
 
         <div className="my-7 h-px bg-black/10" />
@@ -74,7 +72,7 @@ export function SiteFooter() {
         <div className="my-7 h-px bg-black/10" />
 
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-black/55">
-          <span>© aany. All rights reserved.</span>
+          <span>© 2026 Al Aziz Co., Ltd. All rights reserved.</span>
 
           <Link href="/legal/privacy" className="hover:text-black">
             Privacy

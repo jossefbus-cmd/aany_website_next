@@ -2,13 +2,13 @@ export const privacyContent = {
   eyebrow: "Privacy",
   title: "Privacy Policy",
   body:
-    "This Privacy Policy explains how aany handles personal information when people use our website, app, and related services.",
+  "Aany is operated by Al Aziz Co., Ltd. This Privacy Policy explains how we handle personal information when people use our website, app, and related services.",
 
   sections: [
     {
       title: "Information we may collect",
       body:
-        "We may collect information needed to operate the service, including account details, contact information, device information, location-related information, service request details, provider profile information, support messages, reports, and verification-related information where applicable.",
+        "Al Aziz Co., Ltd., as the operator of Aany, may collect information needed to operate the service.",
     },
     {
       title: "How we use information",
