@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { defaultLocale, isSupportedLocale, type Locale } from "@/shared/i18n/locales";
+import {
+  defaultLocale,
+  isSupportedLocale,
+  type Locale,
+} from "@/shared/i18n/locales";
 
 const PUBLIC_FILE_PATTERN = /\.(.*)$/;
 
@@ -25,15 +29,10 @@ function getCountryCode(request: NextRequest) {
   ).toUpperCase();
 }
 
-function getPreferredLocale(request: NextRequest): Locale {
+function getPreferredLocaleByCountry(request: NextRequest): Locale {
   const countryCode = getCountryCode(request);
-  const acceptLanguage = request.headers.get("accept-language")?.toLowerCase() ?? "";
 
   if (countryCode === "TH") {
-    return "th";
-  }
-
-  if (acceptLanguage.includes("th")) {
     return "th";
   }
 
@@ -54,6 +53,19 @@ function shouldIgnorePath(pathname: string) {
   );
 }
 
+function redirectWithNoCache(request: NextRequest, locale: Locale) {
+  const url = request.nextUrl.clone();
+  const pathname = request.nextUrl.pathname;
+
+  url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
+
+  const response = NextResponse.redirect(url);
+
+  response.headers.set("Cache-Control", "no-store, max-age=0");
+
+  return response;
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -61,24 +73,21 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // إذا المستخدم دخل /en أو /th صراحة، لا نغيّر اختياره.
   if (hasLocalePrefix(pathname)) {
     return NextResponse.next();
   }
 
   const userAgent = request.headers.get("user-agent") ?? "";
 
+  // للبوتات نخلي الافتراضي إنجليزي حتى لا يحصل تذبذب في الأرشفة.
   if (isBot(userAgent)) {
-    const botUrl = request.nextUrl.clone();
-    botUrl.pathname = `/en${pathname === "/" ? "" : pathname}`;
-    return NextResponse.redirect(botUrl);
+    return redirectWithNoCache(request, defaultLocale);
   }
 
-  const locale = getPreferredLocale(request);
-  const url = request.nextUrl.clone();
+  const locale = getPreferredLocaleByCountry(request);
 
-  url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-
-  return NextResponse.redirect(url);
+  return redirectWithNoCache(request, locale);
 }
 
 export const config = {
