@@ -59,11 +59,35 @@ const searchablePages = [
     description: "Rules for using aany.",
     keywords: ["terms", "service", "rules", "users"],
   },
-  {
+    {
     label: "Provider Terms",
     href: "/legal/provider-terms",
     description: "Rules and expectations for providers.",
     keywords: ["provider", "terms", "rules", "verification", "services"],
+  },
+  {
+    label: "Community Guidelines",
+    href: "/legal/community-guidelines",
+    description: "Behavior expectations for customers, providers, and visitors.",
+    keywords: ["community", "guidelines", "behavior", "rules", "safety"],
+  },
+  {
+    label: "Verification Policy",
+    href: "/legal/verification-policy",
+    description: "How Aany may review provider or user information.",
+    keywords: ["verification", "verify", "identity", "provider", "student"],
+  },
+  {
+    label: "Reports and Disputes",
+    href: "/legal/reports-and-disputes",
+    description: "How Aany may receive, review, and respond to reports.",
+    keywords: ["reports", "report", "disputes", "dispute", "issues", "safety"],
+  },
+  {
+    label: "Future Payments",
+    href: "/legal/future-payments",
+    description: "Future payment, fee, commission, wallet, and payout terms.",
+    keywords: ["payments", "payment", "future", "fees", "commission", "wallet", "payout"],
   },
 ];
 
@@ -88,7 +112,18 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
     };
   }, [open, onClose]);
 
+useEffect(() => {
+  if (!open) {
+    return;
+  }
 
+  const originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+
+  return () => {
+    document.body.style.overflow = originalOverflow;
+  };
+}, [open]);
 
   const results = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -169,7 +204,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
             {query.trim() ? "Search results" : "Quick links"}
           </p>
 
-          <div className="mt-4 grid gap-2">
+          <div className="mt-4 grid max-h-[52vh] gap-2 overflow-y-auto pr-1">
             {results.length > 0 ? (
               results.map((item) => (
                 <Link

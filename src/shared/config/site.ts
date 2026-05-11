@@ -15,6 +15,10 @@ export const siteConfig = {
     privacy: "/legal/privacy",
     terms: "/legal/terms",
     providerTerms: "/legal/provider-terms",
+    communityGuidelines: "/legal/community-guidelines",
+    verificationPolicy: "/legal/verification-policy",
+    reportsAndDisputes: "/legal/reports-and-disputes",
+    futurePayments: "/legal/future-payments",
     accountDeletion: "/account-deletion",
   },
 } as const;

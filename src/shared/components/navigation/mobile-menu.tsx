@@ -29,6 +29,21 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     };
   }, [open, onClose]);
 
+
+  useEffect(() => {
+  if (!open) {
+    return;
+  }
+
+  const originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+
+  return () => {
+    document.body.style.overflow = originalOverflow;
+  };
+}, [open]);
+
+
   return (
     <div
       className={[
@@ -39,7 +54,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           : "pointer-events-none -translate-y-3 opacity-0",
       ].join(" ")}
     >
-      <div className="bg-white/95 shadow-[0_18px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+      <div className="max-h-[calc(100vh-4rem)] overflow-y-auto bg-white/95 shadow-[0_18px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
         <nav
           className="mx-auto max-w-6xl px-5 py-5"
           aria-label="Mobile navigation"

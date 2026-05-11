@@ -11,6 +11,10 @@ const routes = [
   siteConfig.links.privacy,
   siteConfig.links.terms,
   siteConfig.links.providerTerms,
+  siteConfig.links.communityGuidelines,
+  siteConfig.links.verificationPolicy,
+  siteConfig.links.reportsAndDisputes,
+  siteConfig.links.futurePayments,
   siteConfig.links.accountDeletion,
 ];
 
