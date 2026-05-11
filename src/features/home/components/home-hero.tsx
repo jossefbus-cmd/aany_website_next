@@ -35,20 +35,20 @@ export function HomeHero() {
 
         <div className="mt-32">
           <h2 className="text-3xl font-semibold leading-tight tracking-normal">
-            Student-first, open marketplace.
-          </h2>
+  A clearer way to discover and offer local services.
+</h2>
 
-          <p className="mt-5 text-base leading-7 tracking-normal text-white/70">
-            Built to highlight student talent while keeping room for trusted providers and practical customer needs.
-          </p>
+<p className="mt-5 text-base leading-7 tracking-normal text-white/70">
+  Aany brings customer discovery, student opportunity, provider participation, and support paths into one simple marketplace experience.
+</p>
 
           <div className="mt-7 grid grid-cols-2 gap-3">
             <div className="rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold">
-              Student visibility
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold">
-              Trusted support
-            </div>
+  Student-first
+</div>
+<div className="rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold">
+  Trust-focused
+</div>
           </div>
         </div>
       </div>

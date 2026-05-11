@@ -1,15 +1,15 @@
 export const homeContent = {
   hero: {
     eyebrow: "Student-first services marketplace",
-    title: "Get services from students and trusted providers.",
+    title: "Get practical services from students and trusted providers.",
     body:
-      "aany helps people discover practical services while giving student providers more visibility and trusted providers a clear place to offer their work.",
+      "Aany helps people discover useful local services while giving student providers more visibility and trusted providers a clear place to offer their work.",
     primaryAction: {
-      label: "Explore services",
+      label: "Explore as a customer",
       href: "/customers",
     },
     secondaryAction: {
-      label: "For providers",
+      label: "Offer services",
       href: "/providers",
     },
   },
@@ -18,24 +18,24 @@ export const homeContent = {
     {
       title: "For customers",
       body:
-        "Discover useful services through a clean marketplace experience built around clarity, trust, and support.",
+        "Find practical services through a simple marketplace experience built around clarity, trust, and support.",
     },
     {
       title: "For students",
       body:
-        "aany is designed to help student providers become more visible and access real service opportunities.",
+        "Aany is designed to help student providers become more visible and turn their skills into real service opportunities.",
     },
     {
       title: "For providers",
       body:
-        "The marketplace remains open to trusted providers who follow clear expectations and service standards.",
+        "Trusted providers can participate in an open marketplace with clear expectations and a customer-first experience.",
     },
   ],
 
   trust: {
     eyebrow: "Trust foundation",
-    title: "A marketplace experience built around clarity and support.",
+    title: "Built for a marketplace people can understand.",
     body:
-      "aany is designed with clear customer paths, provider expectations, support channels, and privacy-first account controls as the product grows.",
+      "Aany focuses on clear service discovery, responsible provider participation, support paths, privacy choices, and a product experience that can grow carefully over time.",
   },
 } as const;

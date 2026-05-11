@@ -88,11 +88,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
     };
   }, [open, onClose]);
 
-  useEffect(() => {
-    if (!open) {
-      setQuery("");
-    }
-  }, [open]);
+
 
   const results = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -130,7 +126,10 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
       <button
         type="button"
         aria-label="Close search"
-        onClick={onClose}
+        onClick={() => {
+  setQuery("");
+  onClose();
+}}
         className="absolute inset-0 cursor-default bg-white/30 backdrop-blur-md"
       />
 
@@ -155,7 +154,10 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
 
           <button
             type="button"
-            onClick={onClose}
+            onClick={() => {
+  setQuery("");
+  onClose();
+}}
             className="rounded-full px-4 py-2 text-sm font-semibold text-black/55 transition hover:bg-black/[0.06] hover:text-black"
           >
             Close
@@ -173,7 +175,10 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={onClose}
+                  onClick={() => {
+  setQuery("");
+  onClose();
+}}
                   className="rounded-2xl px-4 py-3 transition hover:bg-black/[0.05]"
                 >
                   <span className="block text-lg font-semibold text-[#171217]">
