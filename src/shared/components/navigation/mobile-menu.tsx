@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 import { getUiDictionary } from "@/shared/i18n/ui-dictionary";
 import type { Locale } from "@/shared/i18n/locales";
-import { localizeHref } from "@/shared/i18n/routing";
+import { localizeHref, switchLocalePath } from "@/shared/i18n/routing";
 
 type MobileMenuProps = {
   open: boolean;
@@ -14,6 +15,7 @@ type MobileMenuProps = {
 };
 
 export function MobileMenu({ open, locale, onClose }: MobileMenuProps) {
+  const pathname = usePathname();
   const ui = getUiDictionary(locale);
 
   useEffect(() => {
@@ -62,6 +64,40 @@ export function MobileMenu({ open, locale, onClose }: MobileMenuProps) {
           className="mx-auto max-w-6xl px-5 py-5"
           aria-label="Mobile navigation"
         >
+          <div className="mb-4 rounded-[24px] bg-black/[0.05] p-2">
+            <p className="px-3 pb-2 pt-1 text-xs font-bold uppercase tracking-[0.14em] text-black/40">
+              {locale === "th" ? "ภาษา" : "Language"}
+            </p>
+
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                href={switchLocalePath(pathname, "en")}
+                onClick={onClose}
+                className={[
+                  "rounded-2xl px-4 py-3 text-center text-sm font-bold transition",
+                  locale === "en"
+                    ? "bg-white text-black shadow-sm"
+                    : "text-black/55 hover:bg-white/70 hover:text-black",
+                ].join(" ")}
+              >
+                English
+              </Link>
+
+              <Link
+                href={switchLocalePath(pathname, "th")}
+                onClick={onClose}
+                className={[
+                  "rounded-2xl px-4 py-3 text-center text-sm font-bold transition",
+                  locale === "th"
+                    ? "bg-white text-black shadow-sm"
+                    : "text-black/55 hover:bg-white/70 hover:text-black",
+                ].join(" ")}
+              >
+                ไทย
+              </Link>
+            </div>
+          </div>
+
           <div className="grid gap-1">
             {ui.navigation.main.map((item) => (
               <Link
