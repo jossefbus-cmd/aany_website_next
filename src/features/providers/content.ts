@@ -1,36 +1,36 @@
 export const providersContent = {
   hero: {
     eyebrow: "For providers",
-    title: "Offer services in a marketplace built for trust.",
+    title: "Get discovered for the services you can offer.",
     body:
-      "Aany gives student providers more visibility while keeping the marketplace open to trusted providers who meet clear service expectations.",
+      "Aany helps talented student providers become more visible while keeping the marketplace open to trusted providers who meet clear service expectations.",
   },
 
   steps: {
     eyebrow: "Provider experience",
     title: "A clearer place to present your work.",
     body:
-      "Aany is designed to help providers present services clearly, build confidence with customers, and participate in a marketplace that values trust and responsibility.",
+      "Aany is designed to help providers present services clearly, build customer confidence, and participate in a marketplace that values trust and responsibility.",
   },
 
   cards: [
     {
       title: "Present your services",
       body:
-        "Share service information in a clear way so customers can understand what you offer and decide whether it fits their needs.",
+        "Share what you offer in a clear way so customers can understand your service and decide whether it fits their needs.",
     },
     {
       title: "Build confidence",
       body:
-        "Accurate information, responsible communication, and reliable service delivery help create a better marketplace experience.",
+        "Clear information, responsible communication, and reliable service delivery help create stronger customer trust.",
     },
     {
-      title: "Student-first visibility",
+      title: "Student visibility",
       body:
-        "Aany is positioned to help student providers stand out and gain more meaningful opportunities.",
+        "Aany gives talented student providers a stronger place to be discovered by customers.",
     },
     {
-      title: "Open participation",
+      title: "Trusted participation",
       body:
         "The marketplace can also include trusted non-student providers who follow platform expectations.",
     },

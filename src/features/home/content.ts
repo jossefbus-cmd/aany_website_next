@@ -1,11 +1,11 @@
 export const homeContent = {
   hero: {
-    eyebrow: "Student-first services marketplace",
-    title: "Get practical services from students and trusted providers.",
+    eyebrow: "Smart local services",
+    title: "Real services at smarter prices.",
     body:
-      "Aany helps people discover useful local services while giving student providers more visibility and trusted providers a clear place to offer their work.",
+      "Aany helps people find practical services from talented students and trusted providers, with a clear marketplace experience built around value, trust, and support.",
     primaryAction: {
-      label: "Explore as a customer",
+      label: "Find services",
       href: "/customers",
     },
     secondaryAction: {
@@ -16,26 +16,26 @@ export const homeContent = {
 
   highlights: [
     {
-      title: "For customers",
+      title: "Useful services",
       body:
-        "Find practical services through a simple marketplace experience built around clarity, trust, and support.",
+        "Find practical services for real needs through a simple marketplace experience.",
     },
     {
-      title: "For students",
+      title: "Smarter prices",
       body:
-        "Aany is designed to help student providers become more visible and turn their skills into real service opportunities.",
+        "Discover service options from talented people who can offer value in a flexible marketplace.",
     },
     {
-      title: "For providers",
+      title: "Student-first, not student-only",
       body:
-        "Trusted providers can participate in an open marketplace with clear expectations and a customer-first experience.",
+        "Aany highlights talented students while remaining open to trusted providers who meet platform expectations.",
     },
   ],
 
   trust: {
-    eyebrow: "Trust foundation",
-    title: "Built for a marketplace people can understand.",
+    eyebrow: "Why Aany",
+    title: "Built around value, talent, and trust.",
     body:
-      "Aany focuses on clear service discovery, responsible provider participation, support paths, privacy choices, and a product experience that can grow carefully over time.",
+      "Aany is designed to help customers find useful services more easily, while giving talented student providers a stronger place to be discovered and trusted providers a clear way to participate.",
   },
 } as const;

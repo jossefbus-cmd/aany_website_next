@@ -1,38 +1,38 @@
 export const customersContent = {
   hero: {
     eyebrow: "For customers",
-    title: "Find useful services with more confidence.",
+    title: "Find real services at smarter prices.",
     body:
-      "Aany helps customers discover practical services from student providers and trusted providers through a clear, simple marketplace experience.",
+      "Aany helps customers discover useful services from talented students and trusted providers through a simple marketplace built around value and confidence.",
   },
 
   flow: {
     eyebrow: "Customer experience",
-    title: "A simpler way to discover and request services.",
+    title: "A simpler way to find the right help.",
     body:
-      "Customers should be able to understand what is available, choose with more confidence, request help clearly, and access support when they need it.",
+      "Customers should be able to understand what is available, compare service options clearly, request help with less confusion, and access support when needed.",
   },
 
   steps: [
     {
-      title: "Discover services",
+      title: "Discover useful services",
       body:
-        "Explore practical service options in a marketplace designed to make student talent and trusted providers easier to find.",
+        "Explore practical service options from talented people who can help with real needs.",
     },
     {
-      title: "Understand the offer",
+      title: "Choose with more confidence",
       body:
-        "Review service information and provider details before deciding what fits your needs.",
+        "Review clear service information and provider details before deciding what fits your needs.",
     },
     {
-      title: "Request help",
+      title: "Request help clearly",
       body:
-        "Use a clear request path designed to reduce confusion and make the next step easier.",
+        "Use a simple request path designed to make the next step easier.",
     },
     {
-      title: "Get support",
+      title: "Access support",
       body:
-        "Access support for account questions, service concerns, reports, privacy requests, and account deletion.",
+        "Get support for account questions, service concerns, reports, privacy requests, and account deletion.",
     },
   ],
 } as const;

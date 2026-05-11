@@ -1,38 +1,38 @@
 export const aboutContent = {
   hero: {
     eyebrow: "About Aany",
-    title: "A student-first marketplace for practical services.",
+    title: "A smarter way to discover services from talented people.",
     body:
-      "Aany is built around a simple idea: make useful services easier to discover while giving student providers a stronger place to be seen.",
+      "Aany is built around a simple idea: help customers find real services at smarter prices while giving talented student providers a stronger place to be seen.",
   },
 
   mission: {
     eyebrow: "Our direction",
-    title: "Student-first, not student-only.",
+    title: "Customer value first. Student-first by design.",
     body:
-      "Aany highlights students as a core part of the product experience while keeping the marketplace open to trusted non-student providers.",
+      "Aany highlights students as a core part of the product experience, but the customer promise is practical: useful services, clear choices, smarter value, and trusted participation.",
   },
 
   cards: [
     {
-      title: "Support opportunity",
+      title: "Serve real customer needs",
       body:
-        "Aany is positioned to help student providers gain visibility and access real service opportunities.",
+        "Aany focuses on practical services people can understand and request with less friction.",
     },
     {
-      title: "Keep it practical",
+      title: "Create smarter value",
       body:
-        "Customers should be able to find useful services without needing to understand complex marketplace mechanics.",
+        "The marketplace is positioned around useful services, flexible options, and talented people.",
     },
     {
-      title: "Stay open",
+      title: "Highlight students",
       body:
-        "The product is not designed to exclude non-student providers. It is designed to give student providers a stronger presence.",
+        "Students are a core part of the experience because many have real skills but need a clearer way to be discovered.",
     },
     {
-      title: "Grow with trust",
+      title: "Stay open to trust",
       body:
-        "Clear expectations, support paths, privacy controls, and responsible participation help the marketplace grow carefully.",
+        "Aany remains open to trusted non-student providers who meet platform expectations and support a better customer experience.",
     },
   ],
 } as const;
