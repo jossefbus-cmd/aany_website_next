@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "aany | Student-first services marketplace",
   description:
     "aany helps customers discover useful services from students and trusted providers.",
-  url: "https://aany.app",
+  url: "https://aany-next.vercel.app",
   locale: "en",
   ogImage: "/images/og-image.png",
   links: {
