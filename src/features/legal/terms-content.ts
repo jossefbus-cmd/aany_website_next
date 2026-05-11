@@ -2,28 +2,28 @@ export const termsContent = {
   eyebrow: "Terms",
   title: "Terms of Service",
   body:
-    "These terms describe the expected rules for using aany as a customer, visitor, or general user.",
+    "These Terms explain the basic rules for using aany as a visitor, customer, or general user.",
 
   sections: [
     {
-      title: "Marketplace role",
+      title: "Our role",
       body:
-        "aany is being built as a marketplace platform that helps customers discover and request services from students and trusted providers. Providers are independent and responsible for the services they offer.",
+        "aany is a marketplace platform that helps people discover and request services from students and trusted providers. Providers are independent and are responsible for the services they offer.",
     },
     {
       title: "User responsibilities",
       body:
-        "Users must provide accurate information, use the service lawfully, respect others, and avoid fraud, abuse, harassment, unsafe behavior, or misuse of the platform.",
+        "Users must provide accurate information, use the service lawfully, respect others, and avoid fraud, harassment, abuse, unsafe behavior, or attempts to misuse the platform.",
     },
     {
       title: "Service availability",
       body:
-        "Services, provider availability, search results, support paths, and product features may change as the platform develops and expands.",
+        "Availability of services, provider information, support paths, and product features may vary by market, rollout stage, and operational readiness.",
     },
     {
-      title: "Future features",
+      title: "Changes to the service",
       body:
-        "Some future features, including payment, wallet, commissions, payouts, or advanced provider tools, may require additional terms before use.",
+        "aany may update, improve, limit, or discontinue parts of the service over time. Material changes to legal terms may require notice or additional acceptance where appropriate.",
     },
   ],
 } as const;

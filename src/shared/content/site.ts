@@ -3,7 +3,7 @@ export const siteContent = {
     name: "aany",
     positioning: "Student-first services marketplace",
     shortDescription:
-      "aany helps customers discover useful services from students and trusted providers.",
+  "A student-first marketplace for discovering useful local services.",
   },
 
   navigation: {
@@ -33,7 +33,7 @@ export const siteContent = {
     eyebrow: "Student-first services marketplace",
     title: "Services from students, powered by trust.",
     body:
-      "aany helps customers discover useful services while giving students and trusted providers a clearer way to offer their skills.",
+  "aany helps people discover practical local services while giving student providers a clearer way to be seen and trusted providers a place to offer their work.",
   },
 
   customers: {
@@ -61,6 +61,6 @@ export const siteContent = {
     eyebrow: "aany Support",
     title: "Need help? Start here.",
     body:
-      "Find support for accounts, providers, service requests, reports, privacy, and account deletion.",
+  "Find help for your account, service requests, provider questions, reports, privacy, and account deletion.",
   },
 } as const;

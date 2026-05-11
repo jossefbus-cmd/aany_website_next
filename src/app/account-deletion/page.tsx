@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import { AccountDeletionPage } from "@/features/account-deletion/page";
+import { buildMetadata } from "@/shared/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Account Deletion",
   description:
-    "Learn how aany users will be able to request account deletion.",
-};
+    "Learn how aany users can request account deletion and related privacy support.",
+  path: "/account-deletion",
+});
 
 export default function Page() {
   return <AccountDeletionPage />;

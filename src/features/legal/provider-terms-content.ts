@@ -2,28 +2,28 @@ export const providerTermsContent = {
   eyebrow: "Provider Terms",
   title: "Provider Terms",
   body:
-    "These terms describe the expected rules for providers who offer services through aany.",
+    "These Provider Terms explain the basic expectations for providers who offer services through aany.",
 
   sections: [
     {
       title: "Independent providers",
       body:
-        "Providers are independent service providers and are not employees of aany. Providers are responsible for the services they offer, including quality, accuracy, safety, and any required permissions or qualifications.",
+        "Providers using aany are independent service providers and are not employees of aany. Providers are responsible for the quality, safety, accuracy, availability, and delivery of the services they offer.",
     },
     {
       title: "Service information",
       body:
-        "Providers are responsible for keeping service descriptions, pricing information, availability, coverage, and profile information accurate and up to date.",
+        "Providers must keep service descriptions, profile details, availability, coverage, and related information accurate and up to date so customers can make informed decisions.",
     },
     {
-      title: "Verification and trust",
+      title: "Trust and review",
       body:
-        "aany may review provider information, request verification, moderate services, remove unsafe content, and restrict provider access when needed to protect users and platform integrity.",
+        "aany may review provider information, request verification, moderate services, restrict access, or remove content when needed to protect customers, providers, or the integrity of the marketplace.",
     },
     {
-      title: "Future payments and commissions",
+      title: "Additional terms",
       body:
-        "The first MVP does not require in-app payment, wallet, or settlement. Future payment, commission, payout, wallet, or financial features may require additional terms and separate acceptance.",
+        "Certain future features or provider tools may require additional terms before they become available. aany will provide those terms when they apply.",
     },
   ],
 } as const;

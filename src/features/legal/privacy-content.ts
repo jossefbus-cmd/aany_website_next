@@ -2,28 +2,28 @@ export const privacyContent = {
   eyebrow: "Privacy",
   title: "Privacy Policy",
   body:
-    "This page explains how aany expects to collect, use, protect, and manage personal data before public launch.",
+    "This Privacy Policy explains how aany handles personal information when people use our website, app, and related services.",
 
   sections: [
     {
       title: "Information we may collect",
       body:
-        "aany may collect account information, contact information, device information, location-related information, service request information, provider information, support requests, reports, and verification-related information when those features are available.",
+        "We may collect information needed to operate the service, including account details, contact information, device information, location-related information, service request details, provider profile information, support messages, reports, and verification-related information where applicable.",
     },
     {
-      title: "How information may be used",
+      title: "How we use information",
       body:
-        "Information may be used to operate accounts, support service discovery, enable matching, improve safety, provide support, review reports, process verification, send notifications, and improve the product.",
+        "We use information to provide and improve the service, support account access, enable service discovery, help connect customers and providers, maintain safety, respond to support requests, review reports, and protect the integrity of the platform.",
     },
     {
-      title: "Sharing and service providers",
+      title: "Service providers",
       body:
-        "aany may use infrastructure, analytics, maps, notifications, AI, hosting, and support service providers. Data may be processed by these providers only as needed to operate the service.",
+        "We may work with trusted infrastructure, hosting, analytics, maps, notification, support, and security providers to operate the service. These providers may process information only as needed to support aany.",
     },
     {
-      title: "User rights and deletion",
+      title: "User choices and requests",
       body:
-        "Users will be able to request access, correction, or deletion of their account information according to the final policy and applicable law before public launch.",
+        "Users may request help with account information, privacy questions, or deletion requests through the support paths provided by aany. Some records may need to be retained when required for safety, legal, fraud prevention, dispute handling, or operational reasons.",
     },
   ],
 } as const;
