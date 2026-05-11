@@ -8,6 +8,41 @@ type BuildMetadataInput = {
   path?: string;
 };
 
+function removeLocalePrefix(path: string) {
+  if (path === "/en" || path === "/th") {
+    return "";
+  }
+
+  if (path.startsWith("/en/")) {
+    return path.replace(/^\/en/, "");
+  }
+
+  if (path.startsWith("/th/")) {
+    return path.replace(/^\/th/, "");
+  }
+
+  return path === "/" ? "" : path;
+}
+
+function buildLocalizedAlternates(path: string) {
+  const route = removeLocalePrefix(path);
+
+  return {
+    en: `${siteConfig.url}/en${route}`,
+    th: `${siteConfig.url}/th${route}`,
+    "th-TH": `${siteConfig.url}/th${route}`,
+    "x-default": `${siteConfig.url}/en${route}`,
+  };
+}
+
+function resolveOpenGraphLocale(path: string) {
+  if (path === "/th" || path.startsWith("/th/")) {
+    return "th_TH";
+  }
+
+  return "en_US";
+}
+
 export function buildMetadata({
   title,
   description = siteConfig.description,
@@ -25,13 +60,14 @@ export function buildMetadata({
     metadataBase: new URL(siteConfig.url),
     alternates: {
       canonical: url,
+      languages: buildLocalizedAlternates(path),
     },
     openGraph: {
       title: resolvedTitle,
       description,
       url,
       siteName: siteConfig.name,
-      locale: "en_US",
+      locale: resolveOpenGraphLocale(path),
       type: "website",
     },
     twitter: {

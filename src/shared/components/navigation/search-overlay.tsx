@@ -17,26 +17,213 @@ type SearchOverlayProps = {
   onClose: () => void;
 };
 
+type ScoredSearchResult = {
+  item: SiteSearchItem;
+  score: number;
+};
+
 function normalize(value: string) {
-  return value.trim().toLowerCase();
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+    .replace(/\s+/g, " ");
 }
 
-function getSearchScore(item: SiteSearchItem, query: string): number {
-  const label = normalize(item.label);
-  const description = normalize(item.description);
-  const keywords = item.keywords.map((keyword) => normalize(keyword));
+function tokenize(value: string) {
+  return normalize(value)
+    .split(/[\s-]+/)
+    .map((token) => token.trim())
+    .filter(Boolean);
+}
 
-  if (label === query) return 1000;
-  if (label.startsWith(query)) return 950;
-  if (label.includes(query)) return 900;
+function levenshteinDistance(a: string, b: string) {
+  if (a === b) {
+    return 0;
+  }
 
-  if (keywords.some((keyword) => keyword === query)) return 850;
-  if (keywords.some((keyword) => keyword.startsWith(query))) return 800;
-  if (keywords.some((keyword) => keyword.includes(query))) return 750;
+  if (a.length === 0) {
+    return b.length;
+  }
 
-  if (description.includes(query)) return 500;
+  if (b.length === 0) {
+    return a.length;
+  }
 
-  return 0;
+  const previous = Array.from({ length: b.length + 1 }, (_, index) => index);
+  const current = Array.from({ length: b.length + 1 }, () => 0);
+
+  for (let i = 1; i <= a.length; i += 1) {
+    current[0] = i;
+
+    for (let j = 1; j <= b.length; j += 1) {
+      const substitutionCost = a[i - 1] === b[j - 1] ? 0 : 1;
+
+      current[j] = Math.min(
+        previous[j] + 1,
+        current[j - 1] + 1,
+        previous[j - 1] + substitutionCost,
+      );
+    }
+
+    for (let j = 0; j <= b.length; j += 1) {
+      previous[j] = current[j];
+    }
+  }
+
+  return previous[b.length] ?? 0;
+}
+
+function isLikelyLatin(value: string) {
+  return /^[a-z0-9\s-]+$/i.test(value);
+}
+
+function getFuzzyTokenScore(queryToken: string, targetTokens: string[]) {
+  if (!isLikelyLatin(queryToken) || queryToken.length < 4) {
+    return 0;
+  }
+
+  let bestScore = 0;
+
+  for (const targetToken of targetTokens) {
+    if (targetToken.length < 4) {
+      continue;
+    }
+
+    const distance = levenshteinDistance(queryToken, targetToken);
+    const maxLength = Math.max(queryToken.length, targetToken.length);
+    const similarity = 1 - distance / maxLength;
+
+    if (distance <= 1 && similarity >= 0.75) {
+      bestScore = Math.max(bestScore, 55);
+    } else if (distance <= 2 && similarity >= 0.78) {
+      bestScore = Math.max(bestScore, 40);
+    }
+  }
+
+  return bestScore;
+}
+
+function scoreTextAgainstQuery({
+  query,
+  queryTokens,
+  text,
+  exactWeight,
+  startsWithWeight,
+  includesWeight,
+  tokenWeight,
+  fuzzyWeight,
+}: {
+  query: string;
+  queryTokens: string[];
+  text: string;
+  exactWeight: number;
+  startsWithWeight: number;
+  includesWeight: number;
+  tokenWeight: number;
+  fuzzyWeight: number;
+}) {
+  const normalizedText = normalize(text);
+  const textTokens = tokenize(text);
+
+  let score = 0;
+
+  if (!normalizedText) {
+    return score;
+  }
+
+  if (normalizedText === query) {
+    score += exactWeight;
+  }
+
+  if (normalizedText.startsWith(query)) {
+    score += startsWithWeight;
+  }
+
+  if (normalizedText.includes(query)) {
+    score += includesWeight;
+  }
+
+  for (const queryToken of queryTokens) {
+    if (normalizedText.includes(queryToken)) {
+      score += tokenWeight;
+    }
+
+    if (textTokens.some((textToken) => textToken.startsWith(queryToken))) {
+      score += Math.round(tokenWeight * 0.8);
+    }
+
+    score += Math.round(
+      getFuzzyTokenScore(queryToken, textTokens) * (fuzzyWeight / 100),
+    );
+  }
+
+  return score;
+}
+
+function getSearchScore(item: SiteSearchItem, rawQuery: string) {
+  const query = normalize(rawQuery);
+  const queryTokens = tokenize(rawQuery);
+
+  if (!query) {
+    return 0;
+  }
+
+  const keywordText = item.keywords.join(" ");
+  const searchableText = normalize(
+    [item.label, item.description, keywordText].join(" "),
+  );
+
+  let score = 0;
+
+  score += scoreTextAgainstQuery({
+    query,
+    queryTokens,
+    text: item.label,
+    exactWeight: 1200,
+    startsWithWeight: 950,
+    includesWeight: 780,
+    tokenWeight: 120,
+    fuzzyWeight: 100,
+  });
+
+  score += scoreTextAgainstQuery({
+    query,
+    queryTokens,
+    text: keywordText,
+    exactWeight: 850,
+    startsWithWeight: 700,
+    includesWeight: 600,
+    tokenWeight: 100,
+    fuzzyWeight: 80,
+  });
+
+  score += scoreTextAgainstQuery({
+    query,
+    queryTokens,
+    text: item.description,
+    exactWeight: 450,
+    startsWithWeight: 380,
+    includesWeight: 320,
+    tokenWeight: 55,
+    fuzzyWeight: 40,
+  });
+
+  const matchedTokenCount = queryTokens.filter((token) =>
+    searchableText.includes(token),
+  ).length;
+
+  if (queryTokens.length > 1 && matchedTokenCount === queryTokens.length) {
+    score += 260;
+  }
+
+  if (queryTokens.length > 1 && matchedTokenCount > 0) {
+    score += matchedTokenCount * 35;
+  }
+
+  return score;
 }
 
 function uniqueResults(items: ReadonlyArray<SiteSearchItem>) {
@@ -52,6 +239,27 @@ function uniqueResults(items: ReadonlyArray<SiteSearchItem>) {
     seen.add(key);
     return true;
   });
+}
+
+function rankSearchResults(
+  searchIndex: ReadonlyArray<SiteSearchItem>,
+  query: string,
+) {
+  const scoredResults: ScoredSearchResult[] = searchIndex
+    .map((item) => ({
+      item,
+      score: getSearchScore(item, query),
+    }))
+    .filter((result) => result.score > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+
+      return a.item.label.localeCompare(b.item.label);
+    });
+
+  return uniqueResults(scoredResults.map((result) => result.item));
 }
 
 export function SearchOverlay({ open, locale, onClose }: SearchOverlayProps) {
@@ -102,22 +310,7 @@ export function SearchOverlay({ open, locale, onClose }: SearchOverlayProps) {
       return searchIndex.slice(0, 6);
     }
 
-    const scoredResults = searchIndex
-      .map((item) => ({
-        item,
-        score: getSearchScore(item, normalizedQuery),
-      }))
-      .filter((result) => result.score > 0)
-      .sort((a, b) => {
-        if (b.score !== a.score) {
-          return b.score - a.score;
-        }
-
-        return a.item.label.localeCompare(b.item.label);
-      })
-      .map((result) => result.item);
-
-    return uniqueResults(scoredResults);
+    return rankSearchResults(searchIndex, query);
   }, [query, searchIndex]);
 
   return (

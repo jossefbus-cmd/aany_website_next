@@ -22,7 +22,7 @@ const baseRoutes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const localizedRoutes = locales.flatMap((locale) =>
+  return locales.flatMap((locale) =>
     baseRoutes.map((route) => ({
       url: `${siteConfig.url}/${locale}${route}`,
       lastModified: now,
@@ -36,20 +36,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     })),
   );
-
-  return [
-    {
-      url: siteConfig.url,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1,
-      alternates: {
-        languages: {
-          en: `${siteConfig.url}/en`,
-          th: `${siteConfig.url}/th`,
-        },
-      },
-    },
-    ...localizedRoutes,
-  ];
 }
