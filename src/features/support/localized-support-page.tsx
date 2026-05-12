@@ -7,13 +7,22 @@ type LocalizedSupportPageProps = {
 
 function SupportIcon() {
   return (
-    <div className="relative flex h-20 w-20 items-center justify-center rounded-[24px] bg-[#111111] text-white shadow-[0_18px_34px_rgba(0,0,0,0.16)]">
-      <div className="relative h-9 w-11 rounded-[18px] border-2 border-white">
-      <div className="absolute bottom-[-7px] left-5 h-3 w-3 rotate-45 border-b-2 border-r-2 border-white bg-[#111111]" />
-      <div className="absolute left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white" />
-      <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
-      <div className="absolute right-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white" />
-     </div>
+    <div className="flex h-20 w-20 items-center justify-center rounded-[24px] bg-[#111111] text-white shadow-[0_18px_34px_rgba(0,0,0,0.16)]">
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 64 64"
+        className="h-11 w-11"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M15 18C15 12.5 19.5 8 25 8H39C44.5 8 49 12.5 49 18V31C49 36.5 44.5 41 39 41H33L24 50V41C19 40.5 15 36.2 15 31V18Z" />
+        <path d="M25 25H25.1" />
+        <path d="M32 25H32.1" />
+        <path d="M39 25H39.1" />
+      </svg>
     </div>
   );
 }

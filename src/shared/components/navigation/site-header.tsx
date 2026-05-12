@@ -71,26 +71,67 @@ export function SiteHeader() {
             })}
           </nav>
 
-          <div className="flex flex-1 items-center justify-end gap-2">
+          <div className="flex flex-1 items-center justify-end gap-0">
             <LanguageSwitcher />
 
             <button
   type="button"
   aria-label="Search"
   onClick={() => setSearchOpen(true)}
-  className="flex h-10 w-10 items-center justify-center text-black transition hover:text-black/55"
+  className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-black/[0.06]"
 >
-  <span className="translate-y-[-1px] text-2xl leading-none">⌕</span>
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 24 24"
+    className="h-4.5 w-4.5 translate-y-[1px]"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="10.5" cy="10.5" r="6.5" />
+    <path d="M16 16L21 21" />
+  </svg>
 </button>
 
             <button
-              type="button"
-              aria-label="Open menu"
-              onClick={() => setMobileOpen((value) => !value)}
-              className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-black/[0.06] md:hidden"
-            >
-              <span className="text-xl">{mobileOpen ? "×" : "☰"}</span>
-            </button>
+  type="button"
+  aria-label="Open menu"
+  onClick={() => setMobileOpen((value) => !value)}
+  className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-black/[0.06] md:hidden"
+>
+  {mobileOpen ? (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 6L18 18" />
+      <path d="M18 6L6 18" />
+    </svg>
+  ) : (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 7H20" />
+      <path d="M4 12H20" />
+      <path d="M4 17H20" />
+    </svg>
+  )}
+</button>
           </div>
         </div>
 
