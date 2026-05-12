@@ -71,23 +71,23 @@ export function SiteHeader() {
             })}
           </nav>
 
-          <div className="flex flex-1 items-center justify-end gap-1">
+          <div className="flex flex-1 items-center justify-end gap-2">
             <LanguageSwitcher />
 
             <button
-              type="button"
-              aria-label="Search"
-              onClick={() => setSearchOpen(true)}
-              className="rounded-full p-2 text-black transition hover:bg-black/[0.06]"
-            >
-              <span className="text-lg">⌕</span>
-            </button>
+  type="button"
+  aria-label="Search"
+  onClick={() => setSearchOpen(true)}
+  className="flex h-10 w-10 items-center justify-center text-black transition hover:text-black/55"
+>
+  <span className="translate-y-[-1px] text-2xl leading-none">⌕</span>
+</button>
 
             <button
               type="button"
               aria-label="Open menu"
               onClick={() => setMobileOpen((value) => !value)}
-              className="rounded-full p-2 text-black transition hover:bg-black/[0.06] md:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-black/[0.06] md:hidden"
             >
               <span className="text-xl">{mobileOpen ? "×" : "☰"}</span>
             </button>
